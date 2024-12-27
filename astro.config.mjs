@@ -3,11 +3,15 @@ import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import compressor from "astro-compressor";
 import starlight from "@astrojs/starlight";
+import vercel from '@astrojs/vercel';
+
 
 // https://astro.build/config
 export default defineConfig({
   // https://docs.astro.build/en/guides/images/#authorizing-remote-images
   site: "https://screwfast.uk",
+  output: 'server',
+  adapter: vercel(),
   image: {
     domains: ["images.unsplash.com"],
   },

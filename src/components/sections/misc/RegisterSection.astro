@@ -1,0 +1,154 @@
+---
+// Import the necessary dependencies.
+import AuthBtn from "@components/ui/buttons/AuthBtn.astro";
+import TextInput from "@components/ui/forms/input/TextInput.astro";
+import EmailContactInput from "@components/ui/forms/input/EmailContactInput.astro";
+import PhoneInput from "@components/ui/forms/input/PhoneInput.astro";
+import PasswordInput from "@/components/ui/forms/input/PasswordInput.astro";
+import RepeatPasswordInput from "@/components/ui/forms/input/RepeatPasswordInput.astro";
+import CustomButton from "@/components/ui/buttons/CustomButton.astro";
+import Authentication from "./Authentication.astro";
+import { createUser } from "../../../models/User";
+
+// Define the variables that will be used in this component
+const title: string = "Registro";
+const subTitle: string =
+    "Registra tus datos para comenzar a usar nuestro sistema POS. Completa la información básica para crear tu cuenta y dar el primer paso hacia la gestión eficiente de tu negocio.";
+const formTitle: string = "Llena el formulario abajo";
+const formSubTitle: string = "We'll get back to you in 1-2 business days.";
+let success = false;
+let responseCode = null;
+
+const errors = {general: "" };
+let formData = {
+    firstname: "",
+    lastname1: "",
+    lastname2: "",
+    enterprice: "",
+    email: "",
+    phone: "",
+    password: "",
+    repeatPassword: "",
+};
+
+if (Astro.request.method === "POST") {
+    try {
+        // Obtención de los datos del formulario
+        const data = await Astro.request.formData();
+        formData.firstname = String(data.get("hs-firstname") ?? "");
+        formData.lastname1 = String(data.get("hs-lastname-1") ?? "");
+        formData.lastname2 = String(data.get("hs-lastname-2") ?? "");
+        formData.enterprice = String(data.get("hs-name-enterprice") ?? "");
+        formData.email = String(data.get("hs-email-contacts") ?? "");
+        formData.phone = String(data.get("hs-phone-number") ?? "");
+        formData.password = String(data.get("password") ?? "");
+        formData.repeatPassword = String(data.get("repeat-password") ?? "");
+        // Aquí puedes realizar operaciones con los datos (guardar en base de datos, enviar correo, etc.)
+        //console.log({ firstname, lastname1, lastname2, email, phone, password, repeatPassword });
+        // Validación básica
+        if (formData.password !== formData.repeatPassword) {
+            throw new Error("Las contraseñas no coinciden");
+        }
+        const userData = {
+            ...formData,
+        };
+        let res = await createUser(userData);
+        // Responder al usuario (redirigir o mostrar un mensaje)
+        errors.general += "Usuario creado con éxito.";
+        success = true;
+
+    } catch (error) {
+        if (error instanceof Error) {
+            success = false;
+            errors.general += error.message;
+            console.error(error.message);
+        }
+    }
+} 
+---
+
+<!-- Contact Us -->
+<section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <div class="mx-auto max-w-2xl lg:max-w-5xl">
+        <div class="text-center">
+            <h1
+                class="text-balance text-2xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-4xl md:leading-tight"
+            >
+                {title}
+            </h1>
+            <p class="mt-1 text-pretty text-neutral-600 dark:text-neutral-400">
+                {subTitle}
+            </p>
+        </div>
+
+        <div class="mt-12 flex justify-center">
+            <div
+                class="w-full max-w-4xl rounded-lg bg-white p-6 shadow-md dark:bg-neutral-800">
+                <h2
+                    class="mb-8 text-center text-xl font-bold text-neutral-700 dark:text-neutral-300">
+                    {formTitle}
+                </h2>
+                {errors.general && <p class="text-red-500 text-center mb-5">{errors.general}</p>}
+                <!-- Form for user input with various input fields -->
+                <form  method="POST">
+                    <div class="grid gap-6 sm:grid-cols-2">
+                        <TextInput
+                            id="hs-firstname"
+                            label="Nombre"
+                            name="hs-firstname"
+                            value={formData.firstname}
+                            required={true}
+                        />
+                        <TextInput
+                            id="hs-lastname-1"
+                            label="Apellido Paterno"
+                            name="hs-lastname-1"
+                            value={formData.lastname1}
+                            required={true}
+                        />
+                        <TextInput
+                            id="hs-lastname-2"
+                            label="Apellido Materno"
+                            name="hs-lastname-2"
+                            value={formData.lastname2}
+                            required={true}
+                        />
+                        <TextInput
+                            id="hs-name-enterprice"
+                            label="Nombre Empresa"
+                            name="hs-name-enterprice"
+                            value={formData.enterprice}
+                            required={true}
+                        />
+                        <EmailContactInput
+                            id="hs-email-contacts"
+                            label="Email"
+                            value={formData.email}
+                        />
+                        <PhoneInput id="hs-phone-number" label="Teléfono" />
+                        <PasswordInput id="hd-password" label="Password"/>
+                        <RepeatPasswordInput
+                            id="hd-repeat-password"
+                            label="Repetir Password"
+                        />
+                    </div>
+
+                    <div class="mt-6 flex justify-center">
+                        <AuthBtn
+                            title="Registrarse"
+                        />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script define:vars={{ success, responseCode }}>
+    if (success === true) {
+        window.location.replace(
+            "/products",
+            (replace = true),
+        );
+    }
+</script>
