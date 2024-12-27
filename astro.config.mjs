@@ -1,10 +1,9 @@
-import { defineConfig } from "astro/config";
+import { defineConfig ,passthroughImageService } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import compressor from "astro-compressor";
 import starlight from "@astrojs/starlight";
-import vercel from '@astrojs/vercel';
-
+import vercel from '@astrojs/vercel/serverless';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,7 +12,8 @@ export default defineConfig({
   output: 'server',
   adapter: vercel(),
   image: {
-    domains: ["images.unsplash.com"],
+    //domains: ["images.unsplash.com"],
+    service: passthroughImageService(), //No usa procesamiento de imagenes
   },
   // i18n: {
   //   defaultLocale: "en",

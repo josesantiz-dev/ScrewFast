@@ -21,40 +21,45 @@ let responseCode = null;
 
 const errors = {general: "" };
 let formData = {
-    firstname: "",
-    lastname1: "",
-    lastname2: "",
-    enterprice: "",
+    usuario: "",
+    nombres: "",
+    apellido_paterno: "",
+    apellido_materno: "",
     email: "",
-    phone: "",
-    password: "",
-    repeatPassword: "",
+    telefono: "",
+    contrasenia: "",
+    estatus : 1,
 };
 
 if (Astro.request.method === "POST") {
     try {
         // Obtención de los datos del formulario
         const data = await Astro.request.formData();
-        formData.firstname = String(data.get("hs-firstname") ?? "");
-        formData.lastname1 = String(data.get("hs-lastname-1") ?? "");
-        formData.lastname2 = String(data.get("hs-lastname-2") ?? "");
-        formData.enterprice = String(data.get("hs-name-enterprice") ?? "");
+        formData.usuario = String(data.get("hs-username") ?? "");
+        formData.nombres = String(data.get("hs-firstname") ?? "");
+        formData.apellido_paterno = String(data.get("hs-lastname-1") ?? "");
+        formData.apellido_materno = String(data.get("hs-lastname-2") ?? "");
         formData.email = String(data.get("hs-email-contacts") ?? "");
-        formData.phone = String(data.get("hs-phone-number") ?? "");
-        formData.password = String(data.get("password") ?? "");
-        formData.repeatPassword = String(data.get("repeat-password") ?? "");
-        // Aquí puedes realizar operaciones con los datos (guardar en base de datos, enviar correo, etc.)
-        //console.log({ firstname, lastname1, lastname2, email, phone, password, repeatPassword });
-        // Validación básica
-        if (formData.password !== formData.repeatPassword) {
+        formData.telefono = String(data.get("hs-phone-number") ?? "");
+        formData.contrasenia = String(data.get("password") ?? "");
+        const repeatPassword = String(data.get("repeat-password") ?? "");
+        // Validaciones
+        if(typeof formData.usuario != "string" || formData.usuario.length < 1) {
+            throw new Error("El usuario es requerido.");
+        }
+        if(formData.contrasenia.length < 8){
+            throw new Error("La contraseña debe tener al menos 8 caracteres.");
+        }
+        if (formData.contrasenia !== repeatPassword) {
             throw new Error("Las contraseñas no coinciden");
         }
+        
         const userData = {
             ...formData,
         };
         let res = await createUser(userData);
         // Responder al usuario (redirigir o mostrar un mensaje)
-        errors.general += "Usuario creado con éxito.";
+        errors.general += "";
         success = true;
 
     } catch (error) {
@@ -68,87 +73,139 @@ if (Astro.request.method === "POST") {
 ---
 
 <!-- Contact Us -->
-<section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
-    <div class="mx-auto max-w-2xl lg:max-w-5xl">
-        <div class="text-center">
-            <h1
-                class="text-balance text-2xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-4xl md:leading-tight"
-            >
-                {title}
-            </h1>
-            <p class="mt-1 text-pretty text-neutral-600 dark:text-neutral-400">
-                {subTitle}
-            </p>
-        </div>
+ {success ? (
+    <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl text-center">
+            <div class="bg-green-100 text-green-800 p-6 rounded-lg">
+                <!-- Ajuste en el contenedor del SVG para centrarlo mejor -->
+                <div class="flex items-center justify-center mb-4" style="height: 4rem;">
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" xml:space="preserve" fill="#000000" class="w-14 h-14">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier"> 
+                            <circle style="fill:#25AE88;" cx="25" cy="25" r="25"></circle> 
+                            <polyline style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" points="38,15 22,33 12,25"></polyline> 
+                        </g>
+                    </svg>
+                </div>
 
-        <div class="mt-12 flex justify-center">
-            <div
-                class="w-full max-w-4xl rounded-lg bg-white p-6 shadow-md dark:bg-neutral-800">
-                <h2
-                    class="mb-8 text-center text-xl font-bold text-neutral-700 dark:text-neutral-300">
-                    {formTitle}
-                </h2>
-                {errors.general && <p class="text-red-500 text-center mb-5">{errors.general}</p>}
-                <!-- Form for user input with various input fields -->
-                <form  method="POST">
-                    <div class="grid gap-6 sm:grid-cols-2">
-                        <TextInput
-                            id="hs-firstname"
-                            label="Nombre"
-                            name="hs-firstname"
-                            value={formData.firstname}
-                            required={true}
-                        />
-                        <TextInput
-                            id="hs-lastname-1"
-                            label="Apellido Paterno"
-                            name="hs-lastname-1"
-                            value={formData.lastname1}
-                            required={true}
-                        />
-                        <TextInput
-                            id="hs-lastname-2"
-                            label="Apellido Materno"
-                            name="hs-lastname-2"
-                            value={formData.lastname2}
-                            required={true}
-                        />
-                        <TextInput
-                            id="hs-name-enterprice"
-                            label="Nombre Empresa"
-                            name="hs-name-enterprice"
-                            value={formData.enterprice}
-                            required={true}
-                        />
-                        <EmailContactInput
-                            id="hs-email-contacts"
-                            label="Email"
-                            value={formData.email}
-                        />
-                        <PhoneInput id="hs-phone-number" label="Teléfono" />
-                        <PasswordInput id="hd-password" label="Password"/>
-                        <RepeatPasswordInput
-                            id="hd-repeat-password"
-                            label="Repetir Password"
-                        />
-                    </div>
+                <h1 class="text-3xl font-semibold text-green-800">¡Registro exitoso!</h1>
+                <p class="mt-4 text-lg text-neutral-600">Te has registrado correctamente. Ahora puedes acceder al sistema.</p>
+                
+                <!-- Mensaje dependiendo del dispositivo -->
+                <p class="mt-4 text-lg text-neutral-600" id="device-message"></p>
 
-                    <div class="mt-6 flex justify-center">
-                        <AuthBtn
-                            title="Registrarse"
-                        />
-                    </div>
-                </form>
+                <div class="mt-6 flex justify-center gap-4">
+                    <AuthBtn title="Ir al login" onClick={() => window.location.replace("/login")} />
+                    <CustomButton title="Volver al inicio" onClick={() => window.location.replace("/")} />
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+ ): (
+    <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+            <div class="text-center">
+                <h1
+                    class="text-balance text-2xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-4xl md:leading-tight"
+                >
+                    {title}
+                </h1>
+                <p class="mt-1 text-pretty text-neutral-600 dark:text-neutral-400">
+                    {subTitle}
+                </p>
+            </div>
 
-<script define:vars={{ success, responseCode }}>
+            <div class="mt-12 flex justify-center">
+                <div
+                    class="w-full max-w-4xl rounded-lg bg-white p-6 shadow-md dark:bg-neutral-800">
+                    <h2
+                        class="mb-8 text-center text-xl font-bold text-neutral-700 dark:text-neutral-300">
+                        {formTitle}
+                    </h2>
+                    {errors.general && <p class="text-red-500 text-center mb-5">{errors.general}</p>}
+                    <!-- Form for user input with various input fields -->
+                    <form  method="POST">
+                        <div class="grid gap-6 sm:grid-cols-2">
+                            <TextInput
+                                id="hs-username"
+                                label="Uusuario"
+                                name="hs-username"
+                                value={formData.usuario}
+                                required={true}
+                            />
+                            <TextInput
+                                id="hs-firstname"
+                                label="Nombre"
+                                name="hs-firstname"
+                                value={formData.nombres}
+                                required={true}
+                            />
+                            <TextInput
+                                id="hs-lastname-1"
+                                label="Apellido Paterno"
+                                name="hs-lastname-1"
+                                value={formData.apellido_paterno}
+                                required={true}
+                            />
+                            <TextInput
+                                id="hs-lastname-2"
+                                label="Apellido Materno"
+                                name="hs-lastname-2"
+                                value={formData.apellido_materno}
+                                required={true}
+                            />
+                            <!-- <TextInput
+                                id="hs-name-enterprice"
+                                label="Nombre Empresa"
+                                name="hs-name-enterprice"
+                                value={formData.enterprice}
+                                required={true}
+                            /> -->
+                            <EmailContactInput
+                                id="hs-email-contacts"
+                                label="Email"
+                                value={formData.email}
+                                required={true}
+                            />
+                            <PhoneInput id="hs-phone-number" label="Teléfono" value={formData.telefono} required={true} />
+                            <PasswordInput id="hd-password" label="Password"/>
+                            <RepeatPasswordInput
+                                id="hd-repeat-password"
+                                label="Repetir Password"
+                            />
+                        </div>
+
+                        <div class="mt-6 flex justify-center">
+                            <AuthBtn
+                                title="Registrarse"
+                            />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+ )}
+
+<!-- <script define:vars={{ success, responseCode }}>
     if (success === true) {
         window.location.replace(
-            "/products",
+            "/register",
             (replace = true),
         );
+    }
+</script> -->
+<script>
+    // Detecta si el dispositivo es móvil o de escritorio
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    
+    const deviceMessage = isMobile ? 
+        "Si estás usando la app móvil, inicia sesión allí." : 
+        "Si estás usando la app de escritorio, inicia sesión en tu computadora.";
+    // Asigna el mensaje a la etiqueta
+    const deviceMessageElement = document.getElementById('device-message');
+    if (deviceMessageElement) {
+        deviceMessageElement.textContent = deviceMessage;
     }
 </script>
