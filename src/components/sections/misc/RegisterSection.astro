@@ -9,6 +9,8 @@ import RepeatPasswordInput from "@/components/ui/forms/input/RepeatPasswordInput
 import CustomButton from "@/components/ui/buttons/CustomButton.astro";
 import Authentication from "./Authentication.astro";
 import { createUser } from "../../../models/User";
+import PrimaryCTA from "@/components/ui/buttons/PrimaryCTA.astro";
+import SecondaryCTA from "@/components/ui/buttons/SecondaryCTA.astro";
 
 // Define the variables that will be used in this component
 const title: string = "Registro";
@@ -96,8 +98,8 @@ if (Astro.request.method === "POST") {
                 <p class="mt-4 text-lg text-neutral-600" id="device-message"></p>
 
                 <div class="mt-6 flex justify-center gap-4">
-                    <AuthBtn title="Ir al login" onClick={() => window.location.replace("/login")} />
-                    <CustomButton title="Volver al inicio" onClick={() => window.location.replace("/")} />
+                    <PrimaryCTA title="Ir al login" url="/login" />
+                    <SecondaryCTA title="Volver al inicio" url="/" />
                 </div>
             </div>
         </div>

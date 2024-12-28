@@ -1,38 +1,38 @@
 {
-  "title": "Simple, Transparent Pricing",
-  "subTitle": "Boost efficiency with ScrewFast's clear, value-driven plans.",
-  "badge": "Best value",
-  "thirdOption": "Enterprise Solutions?",
-  "btnText": "Get a Custom Quote",
+  "title": "Precios Claros y Transparentes",
+  "subTitle": "Aumenta la eficiencia de tu negocio con los planes de Kaktus, diseñados para ofrecerte el mejor valor.",
+  "badge": "Mejor valor",
+  "thirdOption": "¿Necesitas una solución empresarial?",
+  "btnText": "Solicitar una cotización personalizada",
 
   "starterKit": {
-    "name": "Starter Kit",
-    "description": "Best option for DIY projects",
-    "price": "49",
-    "cents": ".00",
-    "billingFrequency": "USD / monthly",
+    "name": "Plan Básico",
+    "description": "La mejor opción para pequeños negocios y emprendedores",
+    "price": "19",
+    "cents": ".99",
+    "billingFrequency": "USD / mensual",
     "features": [
-      "Key hardware tools",
-      "Access to guides & tutorials",
-      "Standard support"
+      "Acceso completo al sistema POS",
+      "Soporte estándar",
+      "Guías y tutoriales para facilitar la configuración"
     ],
-    "purchaseBtnTitle": "Get the Starter Kit",
+    "purchaseBtnTitle": "Obtén el Plan Básico",
     "purchaseLink": "#"
   },
 
   "professionalToolbox": {
-    "name": "Professional Toolbox",
-    "description": "Best for large scale uses",
-    "price": "89",
-    "cents": ".00",
-    "billingFrequency": "USD / monthly",
+    "name": "Plan Profesional",
+    "description": "Ideal para negocios en crecimiento y con necesidades avanzadas",
+    "price": "39",
+    "cents": ".99",
+    "billingFrequency": "USD / mensual",
     "features": [
-      "Premium tool selection",
-      "Priority support",
-      "Exclusive content & deals",
-      "Bulk order discounts"
+      "Todas las funciones del Plan Básico",
+      "Soporte prioritario",
+      "Integraciones avanzadas con sistemas de terceros",
+      "Acceso a reportes y estadísticas detalladas"
     ],
-    "purchaseBtnTitle": "Get the Professional Toolbox",
+    "purchaseBtnTitle": "Obtén el Plan Profesional",
     "purchaseLink": "#"
   }
 }

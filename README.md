@@ -27,17 +27,17 @@ This creates a `dist/` directory with your built site (configurable via [outDir 
 
 Click the button below to start deploying your project on Vercel:  
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2josesantiz-dev%2FScrewFast)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2josesantiz-dev%2FKaktus)
 
 ### Deploying to Netlify
 
 Click the button below to start deploying your project on Netlify:  
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/mearashadowfax/ScrewFast)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/mearashadowfax/Kaktus)
 
 ## Project Structure
 
-ScrewFast organizes modular components, content, and layouts to streamline development and content management.
+Kaktus organizes modular components, content, and layouts to streamline development and content management.
 
 ```md
 
@@ -87,7 +87,7 @@ public/
 
 ## Customization
 
-ScrewFast allows for easy customization to suit your specific needs. Here are a couple of ways you can configure components and content:
+Kaktus allows for easy customization to suit your specific needs. Here are a couple of ways you can configure components and content:
 
 ### Editing Component Variables
 
@@ -97,7 +97,7 @@ Some components have properties defined as TypeScript variables within the compo
 // Define the string variables title and subTitle for the main heading and sub-heading text.
 const title: string = "Meeting Industry Demands";
 const subTitle: string =
-  "At ScrewFast, we tackle the unique challenges encountered in the hardware and construction sectors.";
+  "At kaktus, we tackle the unique challenges encountered in the hardware and construction sectors.";
 ```
 
 For collections of content like testimonials or statistics, edit the corresponding array of objects:
@@ -205,14 +205,14 @@ We have two options for the navigation bar components: `Navbar.astro` for a regu
 
 The `Navbar.astro` and `NavbarMegaMenu.astro` components can be configured within `MainLayout.astro`, allowing you to choose the style of navigation that best suits your project. To customize these components, you can modify them directly under `src/components/sections/navbar&footer` to apply specific configurations or design updates.
 
-![ScrewFast MegaMenu](https://github.com/user-attachments/assets/690482af-f1a4-4ebf-be58-eca0b5862973)
+![Kaktus MegaMenu](https://github.com/user-attachments/assets/690482af-f1a4-4ebf-be58-eca0b5862973)
 
 
 ## Integrations and Enhancements
 
 ### Starlight Documentation
 
-ScrewFast is now equipped with Starlight, designed to elevate the user experience with documentation. This modern and elegant theme includes a suite of features to make content more accessible and enjoyable to navigate.
+Kaktus is now equipped with Starlight, designed to elevate the user experience with documentation. This modern and elegant theme includes a suite of features to make content more accessible and enjoyable to navigate.
 
 Key Features:
 
@@ -319,7 +319,7 @@ Additionally, update the `<html>` tag to remove the `scrollbar-hide` class, resu
 
 ### SEO Configuration
 
-The SEO Configuration in the ScrewFast template is designed to empower users in optimizing their website's visibility on search engines and social media platforms. This documentation outlines the implementation details and usage instructions for effectively managing SEO settings.
+The SEO Configuration in the Kaktus template is designed to empower users in optimizing their website's visibility on search engines and social media platforms. This documentation outlines the implementation details and usage instructions for effectively managing SEO settings.
 
 #### Using constants.ts
 
@@ -331,7 +331,7 @@ To customize SEO settings, modify the values in the `constants.ts` file. Key con
 // constants.ts
 
 export const SITE = {
-  title: "ScrewFast",
+  title: "Kaktus",
   // Other SITE properties...
 };
 
@@ -398,8 +398,8 @@ Structured data in JSON-LD format can be managed by the `Meta.astro` component, 
   structuredData={{
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "ScrewFast",
-    "url": "https://screwfast.uk",
+    "name": "kaktus",
+    "url": "https://kaktus.com",
     "description": "Discover top-quality hardware tools and services"
   }}
 >
@@ -559,6 +559,20 @@ If you're interested in helping, you can contribute in several ways:
 
 ## License
 
-This project is released under the MIT License. Please read the [LICENSE](https://github.com/mearashadowfax/ScrewFast/blob/main/LICENSE) file for more details.
+This project is released under the MIT License. Please read the [LICENSE](https://github.com/mearashadowfax/Kaktus/blob/main/LICENSE) file for more details.
 
 **Note:** This website template has no affiliation with the companies displayed. Logos are used for demonstration purposes only and should be replaced in customized versions.
+
+En ese caso, mantener "Kaktus" como el nombre principal de la marca es una excelente idea, ya que es flexible para abarcar tanto software como hardware. Podrías usar un esquema de nombres que diferencie las líneas de productos, por ejemplo:
+
+Kaktus POS (sistemas de software para puntos de venta).
+
+KaktusMobile
+KaktusWeb
+KaktusDesktop
+Kaktus Hardware (equipos para puntos de venta).
+
+KaktusPrint (impresoras)
+KaktusScan (escáneres)
+KaktusRegister (cajas registradoras)
+Kaktus One (un paquete que combine software y hardware).

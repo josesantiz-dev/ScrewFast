@@ -9,11 +9,11 @@ import TextAreaInput from "@components/ui/forms/input/TextAreaInput.astro";
 import Icon from "@components/ui/icons/Icon.astro";
 
 // Define the variables that will be used in this component
-const title: string = "Contact us";
+const title: string = "Contáctanos";
 const subTitle: string =
-  "Have questions or want to discuss a project? Reach out, and let's craft the perfect solution with our tools and services.";
-const formTitle: string = "Fill in the form below";
-const formSubTitle: string = "We'll get back to you in 1-2 business days.";
+"¿Tienes preguntas o deseas hablar sobre cómo Kaktus puede mejorar tu negocio? Contáctanos y juntos encontraremos la mejor solución para tu punto de venta.";
+const formTitle: string = "Rellena el formulario a continuación";
+const formSubTitle: string = "Nos pondremos en contacto contigo en 1-2 días hábiles.";
 ---
 
 <!-- Contact Us -->
@@ -44,13 +44,13 @@ const formSubTitle: string = "We'll get back to you in 1-2 business days.";
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <TextInput
                 id="hs-firstname-contacts"
-                label="First Name"
+                label="Nombres"
                 name="hs-firstname-contacts"
                 value=""
               />
               <TextInput
                 id="hs-lastname-contacts"
-                label="Last Name"
+                label="Apellidos"
                 name="hs-firstname-contacts"
                 value=""
 
@@ -61,13 +61,13 @@ const formSubTitle: string = "We'll get back to you in 1-2 business days.";
             <PhoneInput id="hs-phone-number" />
             <TextAreaInput
               id="hs-about-contacts"
-              label="Details"
+              label="Mensaje"
               name="hs-about-contacts"
             />
           </div>
 
           <div class="mt-4 grid">
-            <AuthBtn title="Send Message" />
+            <AuthBtn title="Enviar mensaje" />
           </div>
 
           <div class="mt-3 text-center">
@@ -81,42 +81,47 @@ const formSubTitle: string = "We'll get back to you in 1-2 business days.";
       <!--ContactIconBlocks are used to display different methods of contacting, including visiting office, email, browsing knowledgebase, and FAQ.-->
       <div class="divide-y divide-neutral-300 dark:divide-neutral-700">
         <ContactIconBlock
-          heading="Knowledgebase"
-          content="Browse through all of our knowledgebase articles."
+          heading="Centro de Conocimiento"
+          content="Explora todos nuestros artículos de la base de conocimientos para aprender a sacar el máximo provecho a Kaktus."
           isLinkVisible={true}
-          linkTitle="Visit guides & tutorials"
+          linkTitle="Visita guías y tutoriales"
           linkURL="#"
           isArrowVisible={true}
-          ><Icon name="question" />
+        >
+          <Icon name="question" />
         </ContactIconBlock>
-
+      
         <ContactIconBlock
-          heading="FAQ"
-          content="Explore our FAQ for quick, clear answers to common queries."
+          heading="Preguntas Frecuentes"
+          content="Consulta nuestras preguntas frecuentes para obtener respuestas rápidas a las dudas más comunes sobre Kaktus."
           isLinkVisible={true}
-          linkTitle="Visit FAQ"
+          linkTitle="Visita la FAQ"
           linkURL="#"
           isArrowVisible={true}
-          ><Icon name="chatBubble" />
+        >
+          <Icon name="chatBubble" />
         </ContactIconBlock>
-
+      
         <ContactIconBlock
-          heading="Visit our office"
-          content="UK ScrewFast"
+          heading="Visítanos en la oficina"
+          content="Kaktus - Oficina Principal"
           isAddressVisible={true}
-          addressContent="72 Union Terrace, E10 4PE London"
-          ><Icon name="mapPin" />
+          addressContent="72 Union Terrace, E10 4PE Londres"
+        >
+          <Icon name="mapPin" />
         </ContactIconBlock>
-
+      
         <ContactIconBlock
-          heading="Contact us by email"
-          content="Prefer the written word? Drop us an email at"
+          heading="Contáctanos por correo electrónico"
+          content="¿Prefieres comunicarte por escrito? Envíanos un correo a"
           isLinkVisible={true}
-          linkTitle="support@screwfast.uk"
-          linkURL="#"
-          ><Icon name="envelopeOpen" />
+          linkTitle="soporte@kaktus.com"
+          linkURL="mailto:support@kaktus.com"
+        >
+          <Icon name="envelopeOpen" />
         </ContactIconBlock>
       </div>
+      
     </div>
   </div>
 </section>
