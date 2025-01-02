@@ -7,14 +7,55 @@ import AuthBtn from "@components/ui/buttons/AuthBtn.astro";
 import GoogleBtn from "@components/ui/buttons/GoogleBtn.astro";
 
 // Variables for customization of the LoginModal Component
-
+let success = false;
 const config = {
   id: "hs-toggle-between-modals-login-modal", // Modal IDENTIFIER
-  title: "Sign in", // Main HEADING
-  subTitle: "Don't have an account yet?", // Sub-Heading TEXT
-  registerBtn: "Sign up here", // Text for REGISTRATION BUTTON
+  title: "Iniciar Sesión", // Main HEADING
+  subTitle: "¿Aún no tienes una cuenta?", // Sub-Heading TEXT
+  registerBtn: "Regístrate aquí", // Text for REGISTRATION BUTTON
   registerBtnDataHS: "#hs-toggle-between-modals-register-modal", // TARGET LINK for registration button
 };
+let formData = {
+    email: "",
+    password: "",
+};
+if (Astro.request.method === "POST") {
+    try {
+        // Obtención de los datos del formulario
+        const data = await Astro.request.formData();
+        formData.email = String(data.get("email") ?? "");
+        formData.password = String(data.get("password") ?? "");
+
+        // Validaciones
+        if(typeof formData.email != "string" || formData.email.length < 1) {
+            throw new Error("Email es requerido.");
+        }
+        if(typeof formData.password != "string" || formData.password.length < 1){
+            throw new Error("La contraseña es requerido.");
+        }
+        const userData = {
+            ...formData,
+        };
+        const response = await fetch('https://example.com/api/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        });
+        const dataResponse = await response.json();
+        if(dataResponse){
+            success = true;
+        }else{
+            success = false;
+        }
+    } catch (error) {
+        if (error instanceof Error) {
+            success = false;
+            console.error(error.message);
+        } 
+    }
+} 
 ---
 
 <div
@@ -35,7 +76,7 @@ const config = {
             >
               {config.title}
             </h2>
-            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+            <!--<p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
               {config.subTitle}
               <button
                 class="rounded-lg p-1 font-medium text-orange-400 decoration-2 outline-none ring-zinc-500 hover:underline focus-visible:ring dark:text-orange-400 dark:ring-zinc-200 dark:focus:outline-none"
@@ -43,25 +84,24 @@ const config = {
               >
                 {config.registerBtn}
               </button>
-            </p>
+            </p>-->
           </div>
           <div class="mt-5">
-            <GoogleBtn title="Sign in with Google" />
-
+            <!--<GoogleBtn title="Iniciar sesión con Google" />
             <div
               class="flex items-center py-3 text-xs uppercase text-neutral-400 before:me-6 before:flex-[1_1_0%] before:border-t before:border-neutral-200 after:ms-6 after:flex-[1_1_0%] after:border-t after:border-neutral-200 dark:text-neutral-500 dark:before:border-neutral-600 dark:after:border-neutral-600"
             >
-              Or
-            </div>
+            ó
+            </div>-->
             <!-- The container for the form -->
-            <form>
+            <form method="POST">
               <!-- A grid layout for the form fields -->
               <div class="grid gap-y-4">
                 <!-- The email input field -->
-                <EmailInput id="login-email" errorId="login-email-error" />
+                <EmailInput id="login-email" errorId="login-email-error" label="Email" />
                 <!-- The password input field -->
                 <PasswordInput
-                  forgot={true}
+                  forgot={false}
                   id="password"
                   errorId="login-password-error"
                   content="8+ characters required"
@@ -69,7 +109,7 @@ const config = {
                 <!-- The remember-me checkbox -->
                 <Checkbox id="remember-me" />
                 <!-- The sign-in button -->
-                <AuthBtn title="Sign in" />
+                <AuthBtn title="Iniciar sesión" />
               </div>
             </form>
           </div>
@@ -78,3 +118,12 @@ const config = {
     </div>
   </div>
 </div>
+
+<script define:vars={{ success }}>
+    if (success === true) {
+        window.location.replace(
+            "",
+            (replace = true),
+        );
+    }
+</script>
