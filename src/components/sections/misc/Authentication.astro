@@ -4,10 +4,12 @@ import LoginModal from "@components/ui/forms/LoginModal.astro";
 import RegisterModal from "@components/ui/forms/RegisterModal.astro";
 import RecoverModal from "@components/ui/forms/RecoverModal.astro";
 import LoginBtn from "@components/ui/buttons/LoginBtn.astro";
+const url = import.meta.env.API_URL;
+
 ---
 
 <!-- Login Button -->
-<LoginBtn />
+<LoginBtn url={url}/>
 <!-- Login Modal -->
 <!-- <LoginModal /> -->
 <!-- Register Modal -->

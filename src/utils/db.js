@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 
 let client;
 let db;
-const URI ='mongodb+srv://joseph1990:rWslTWmTF7IB9dHz@cluster0.x2liw.mongodb.net/kaktus?retryWrites=true&w=majority&appName=Cluster0';
+const URI = import.meta.env.MONGO_DB_URL;
 
 export const connectToDatabase = async () => {
   if (db) return { db, client }; // Si ya está conectada, reutilízala
